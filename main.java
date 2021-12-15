@@ -4,23 +4,17 @@ import android.graphics.BitmapFactory;
 //https://developer.android.com/topic/performance/graphics/load-bitmap
 
 final BitmapFactory.Options options = new BitmapFactory.Options();
-options.inJustDecodeBounds = true;
+options.inSampleSize = 1;
 
-BitmapFactory.decodeResource(getResources(), R.drawable.image, options);
+Bitmap bmp = BitmapFactory.decodeResource(getResources(), R.drawable.image, options);
 
-int imageHeight = options.outHeight;
-int imageWidth = options.outWidth;
+int imageHeight = bmp.getHeight();
+int imageWidth = bmp.getWidth();
 
 int segments = 3;
 int segment_length = imageWidth / segments;
 
 int[] averages = new int[segments];
-
-options.inSampleSize = 2;
-options.inJustDecodeBounds = false;
-
-Bitmap bmp = BitmapFactory.decodeResource(getResources(), R.drawable.image, options);
-
 
 for (int x = 0; x < imageWidth; x++) {
     for (int y = 0; y < imageHeight; y++) {
